@@ -1,0 +1,43 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      forceCoeffs;
+}
+
+forceCoeffs1
+{
+    type            forceCoeffs;
+    libs            ("libforces.so");
+    writeControl    timeStep;
+    writeInterval   1;
+
+    patches         (airfoil);
+
+
+    rhoInf          1;
+    rho             rhoInf;
+
+    liftDir         (-0.207912  0.978148 0);
+    dragDir         ( 0.978148  0.207912 0);
+    pitchAxis       (0 0 1);
+    CofR            (0.25 0 0);
+
+    magUInf         30;
+    lRef            1;
+    Aref            0.01;
+}
+
+
+forces1
+{
+    type            forces;
+    libs            ("libforces.so");
+    writeControl    timeStep;
+    writeInterval   1;
+    patches         (airfoil);
+    rhoInf          1;
+    rho             rhoInf;
+    CofR            (0.25 0 0);
+}

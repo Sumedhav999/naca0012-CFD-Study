@@ -1,0 +1,108 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      snappyHexMeshDict;
+}
+
+castellatedMesh true;
+snap            true;
+addLayers       true;
+
+geometry
+{
+    NACA0012_v2_z100sym.stl
+    {
+        type triSurfaceMesh;
+        name airfoil;
+    }
+}
+
+castellatedMeshControls
+{
+    maxLocalCells   1000000;
+    maxGlobalCells  8000000;
+    minRefinementCells 0;
+    maxLoadUnbalance 0.1;
+    nCellsBetweenLevels 3;
+    features ({ file "NACA0012_v2_z100sym.eMesh"; level 5; });
+    refinementSurfaces
+    {
+        airfoil
+        {
+            level (4 4);
+            patchInfo
+            {
+                type wall;
+            }
+        }
+    }
+    resolveFeatureAngle 30;
+    refinementRegions 
+{
+        airfoil
+        {
+            mode    distance;
+            levels  ((0.03 2) (0.10 1));
+        }
+};
+    locationInMesh (-5.137 5.213 0.005);
+    allowFreeStandingZoneFaces true;
+}
+
+snapControls
+{
+    nSmoothPatch 3;
+    tolerance 2.0;
+    nSolveIter 30;
+    nRelaxIter 5;
+}
+
+addLayersControls
+{
+    relativeSizes       false;
+    firstLayerThickness 2e-05;
+    expansionRatio      1.2;
+    minThickness        5e-06;
+
+    layers
+    {
+        airfoil { nSurfaceLayers 22; }
+    }
+
+    featureAngle              180;
+    slipFeatureAngle          30;
+    nGrow                     0;
+    nRelaxIter                8;
+    nSmoothSurfaceNormals     3;
+    nSmoothNormals            5;
+    nSmoothThickness          10;
+    maxFaceThicknessRatio     0.5;
+    maxThicknessToMedialRatio 0.3;
+    minMedialAxisAngle        90;
+    nBufferCellsNoExtrude     0;
+    nLayerIter                50;
+    nRelaxedIter              20;
+}
+
+meshQualityControls
+{
+    maxNonOrtho 65;
+    maxBoundarySkewness 20;
+    maxInternalSkewness 4;
+    maxConcave 80;
+    minVol 1e-13;
+    minTetQuality 1e-9;
+    minArea -1;
+    minTwist 0.02;
+    minDeterminant 0.001;
+    minFaceWeight 0.02;
+    minVolRatio 0.01;
+    minTriangleTwist -1;
+    errorReduction 0.75;
+    nSmoothScale 4;
+}
+
+mergeTolerance 1e-6;
+writeFlags ();

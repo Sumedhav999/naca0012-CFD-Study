@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+surfaceFeatures > log.surfaceFeatures 2>&1
+blockMesh > log.blockMesh 2>&1
+snappyHexMesh -overwrite > log.snappy 2>&1
+extrudeMesh > log.extrudeMesh 2>&1
+
+for A in 0 2 4 6 8 10 12; do
+    ./setAoA.sh $A
+    foamRun > log.AoA$A 2>&1
+done

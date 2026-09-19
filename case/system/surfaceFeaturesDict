@@ -1,0 +1,12 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      surfaceFeaturesDict;
+}
+
+surfaces        ("NACA0012_v2_z100sym.stl");
+
+includedAngle   150;

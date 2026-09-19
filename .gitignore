@@ -1,0 +1,4 @@
+case/5000/
+case/constant/polyMesh/
+case/postProcessing/
+case/log.*
